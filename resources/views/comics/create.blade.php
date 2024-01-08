@@ -4,25 +4,27 @@
 
 @section('content')
     <main>
-        <section class="container">
-            <h1>Products</h1>
-            <div class="row gy-4">
-                <div class="col-12">
-                    <div class="card">
-                        <img src="{{ $comic->thumb }}" alt="{{ $comic->title }}" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $comic->title }}</h5>
-                            <p class="card-text">{{ $comic->description }}</p>
-                            <p>
-                                Prezzo: {{ $comic->price }} | Data di Uscita: {{ $comic->sale_date }} | Tipo:
-                                {{ $comic->type }}
-                            </p>
-
-                        </div>
-                    </div>
-                </div>
+        <form class="container py-2 " method="POST" action="{{ route('comics.store') }}">
+            @csrf
+            <div class="form-group">
+                <label class="text-white" for="title">Title</label>
+                <input type="text" class="form-control" id="title" aria-describedby="emailHelp" placeholder="Title"
+                    name="title">
             </div>
-        </section>
+            <div class="form-group">
+                <label class="text-white" for="description">Description</label>
+                <input type="text" class="form-control" id="description" placeholder="Description" name="description">
+            </div>
+            <div class="form-group">
+                <label class="text-white" for="price">Price</label>
+                <input type="text" class="form-control" id="price" placeholder="Price" name="price">
+            </div>
+            <div class="form-group">
+                <label class="text-white" for="type">Type</label>
+                <input type="text" class="form-control" id="type" placeholder="Type" name="type">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
     </main>
 
 @endsection

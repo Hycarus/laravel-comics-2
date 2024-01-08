@@ -69,7 +69,7 @@ git init
 git add .
 git commit -m "first commit"
 git branch -M main
-git remote add origin https://github.com/MaxPredathor/template_laravel_base.git
+git remote add origin https://github.com/Hycarus/template_laravel_base.git
 git push -u origin main
 
 #Creo nuova repo su github da template

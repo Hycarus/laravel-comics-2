@@ -5,7 +5,10 @@
 @section('content')
     <main>
         <section class="container">
-            <h1>Products</h1>
+            <div class="d-flex justify-content-between align-items-center">
+                <h1>{{ $comic->title }}</h1>
+                <div><a href="{{ route('comics.edit', $comic->id) }}" class="btn btn-primary">Edit Comic</a></div>
+            </div>
             <div class="row gy-4">
                 <div class="col-12">
                     <div class="card">

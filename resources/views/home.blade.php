@@ -14,8 +14,8 @@
                     </div>
                 @endforeach
             </div>
-            <button>LOAD MORE</button>
         </div>
+        <div class="container"><button>LOAD MORE</button></div>
     </main>
     @include('partials.contacts')
 

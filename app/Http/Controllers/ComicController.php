@@ -40,14 +40,17 @@ class ComicController extends Controller
     {
         //
         $formData = $request->all();
-        $newComic = new Comic();
-        $newComic->title = $formData['title'];
-        $newComic->description = $formData['description'];
-        $newComic->price = $formData['price'];
-        $newComic->series = 'a piacere';
-        $newComic->sale_date = '2020-01-01';
-        $newComic->type = $formData['type'];
-        $newComic->save();
+        // $newComic = new Comic();
+        // $newComic->fill($formData);
+        // $newComic->title = $formData['title'];
+        // $newComic->description = $formData['description'];
+        // $newComic->price = $formData['price'];
+        // $newComic->series = 'a piacere';
+        // $newComic->sale_date = '2020-01-01';
+        // $newComic->type = $formData['type'];
+
+        // $newComic->save();
+        $newComic = Comic::create($formData);
         return to_route('comics.show', $newComic->id);
     }
 
@@ -84,12 +87,13 @@ class ComicController extends Controller
     public function update(Request $request, Comic $comic)
     {
         $formData = $request->all();
-        $comic->title = $formData['title'];
-        $comic->description = $formData['description'];
-        $comic->price = $formData['price'];
-        $comic->series = 'a piacere';
-        $comic->sale_date = '2020-01-01';
-        $comic->type = $formData['type'];
+        // $comic->title = $formData['title'];
+        // $comic->description = $formData['description'];
+        // $comic->price = $formData['price'];
+        // $comic->series = 'a piacere';
+        // $comic->sale_date = '2020-01-01';
+        // $comic->type = $formData['type'];
+        $comic->fill($formData);
         $comic->update();
         return to_route('comics.show', $comic->id);
     }
@@ -102,6 +106,7 @@ class ComicController extends Controller
      */
     public function destroy(Comic $comic)
     {
-        //
+        $comic->delete();
+        return to_route('comics.index')->with('message', "Hai eliminato il fumetto " . $comic->title);
     }
 }

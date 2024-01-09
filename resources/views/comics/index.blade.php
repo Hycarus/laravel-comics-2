@@ -9,6 +9,9 @@
                 <h1>Comics</h1>
                 <div><a href="{{ route('comics.create') }}" class="btn btn-primary">Create new Comic</a></div>
             </div>
+            @if (session()->has('message'))
+                <div class="alert alert-success">{{ session('message') }}</div>
+            @endif
             <div class="row gy-4">
                 @foreach ($comics as $comic)
                     <div class="col-12 col-md-4 col-lg-3">
@@ -17,7 +20,14 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ $comic->title }}</h5>
                                 <p class="card-text">{{ substr($comic->description, 0, 100) . '...' }}</p>
-                                <a href="{{ route('comics.show', $comic->id) }}" class="btn btn-primary">Vedi dettaglio</a>
+                                <a href="{{ route('comics.show', $comic->id) }}" class="btn btn-primary">Show
+                                    details</a>
+                                <form action="{{ route('comics.destroy', $comic->id) }}" method="POST"
+                                    style="display: inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
                             </div>
                         </div>
                     </div>

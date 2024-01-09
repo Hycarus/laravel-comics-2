@@ -9,19 +9,19 @@
             <div class="form-group">
                 <label class="text-white" for="title">Title</label>
                 <input type="text" class="form-control" id="title" aria-describedby="emailHelp" placeholder="Title"
-                    name="title">
+                    name="title" required>
             </div>
             <div class="form-group">
                 <label class="text-white" for="description">Description</label>
-                <input type="text" class="form-control" id="description" placeholder="Description" name="description">
+                <textarea type="text" class="form-control" id="description" placeholder="Description" name="description"></textarea>
             </div>
             <div class="form-group">
                 <label class="text-white" for="price">Price</label>
-                <input type="text" class="form-control" id="price" placeholder="Price" name="price">
+                <input type="text" class="form-control" id="price" placeholder="Price" name="price" required>
             </div>
             <div class="form-group">
                 <label class="text-white" for="type">Type</label>
-                <input type="text" class="form-control" id="type" placeholder="Type" name="type">
+                <input type="text" class="form-control" id="type" placeholder="Type" name="type" required>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

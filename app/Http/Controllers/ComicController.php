@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Comic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illumminate\View\View;
 
 class ComicController extends Controller
 {
@@ -39,15 +41,15 @@ class ComicController extends Controller
     public function store(Request $request)
     {
         //
-        $formData = $request->all();
-        $request->validate([
-            'title' => 'required|min:5|max:255|unique:comics',
-            'type' => 'required|max:50',
-            'description' => 'required|max:255',
-            'price' => 'required|numeric',
-            'series' => 'required|max:50',
-            'sale_date' => 'required|date_format:Y-m-d',
-        ]);
+        $formData = $this->validation($request->all());
+        // $request->validate([
+        //     'title' => 'required|min:5|max:255|unique:comics',
+        //     'type' => 'required|max:50',
+        //     'description' => 'required|max:255',
+        //     'price' => 'required|numeric',
+        //     'series' => 'required|max:50',
+        //     'sale_date' => 'required|date_format:Y-m-d',
+        // ]);
         // $newComic = new Comic();
         // $newComic->fill($formData);
         // $newComic->title = $formData['title'];
@@ -94,15 +96,15 @@ class ComicController extends Controller
      */
     public function update(Request $request, Comic $comic)
     {
-        $formData = $request->all();
-        $request->validate([
-            'title' => 'required|min:5|max:255|unique:comics',
-            'type' => 'required|max:50',
-            'description' => 'required|max:255',
-            'price' => 'required|numeric',
-            'series' => 'required|max:50',
-            'sale_date' => 'required|date_format:Y-m-d',
-        ]);
+        $formData = $this->validation($request->all());
+        // $request->validate([
+        //     'title' => 'required|min:5|max:255|unique:comics',
+        //     'type' => 'required|max:50',
+        //     'description' => 'required|max:255',
+        //     'price' => 'required|numeric',
+        //     'series' => 'required|max:50',
+        //     'sale_date' => 'required|date_format:Y-m-d',
+        // ]);
         // $comic->title = $formData['title'];
         // $comic->description = $formData['description'];
         // $comic->price = $formData['price'];
@@ -124,5 +126,33 @@ class ComicController extends Controller
     {
         $comic->delete();
         return to_route('comics.index')->with('message', "Hai eliminato il fumetto " . $comic->title);
+    }
+
+    private function validation($data)
+    {
+        $validator = Validator::make($data, [
+            'title' => 'required|min:5|max:255|unique:comics',
+            'type' => 'required|max:50',
+            'description' => 'required|max:255',
+            'price' => 'required|numeric',
+            'series' => 'required|max:50',
+            'sale_date' => 'required|date_format:Y-m-d',
+        ], [
+            'title.required' => 'Il titolo è obbligatorio',
+            'title.min' => 'Il titolo deve avere almeno :min caratteri',
+            'title.max' => 'Il titolo deve avere massimo :max caratteri',
+            'title.unique' => 'Il titolo deve essere univoco',
+            'type.required' => 'Il tipo è obbligatorio',
+            'type.max' => 'Il tipo deve avere massimo :max caratteri',
+            'description.required' => 'La descrizione è obbligatoria',
+            'description.max' => 'La descrizione deve avere massimo :max caratteri',
+            'price.required' => 'Il prezzo è obbligatorio',
+            'price.numeric' => 'Il prezzo deve essere un numero',
+            'series.required' => 'La serie è obbligatoria',
+            'series.max' => 'La serie deve avere massimo :max caratteri',
+            'sale_date.required' => 'La data di vendita è obbligatoria',
+            'sle_date.date_format' => 'La data di vendita deve essere nel formato AAAA-MM-GG',
+        ])->validate();
+        return $validator;
     }
 }

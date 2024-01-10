@@ -22,11 +22,10 @@
                                 <p class="card-text">{{ substr($comic->description, 0, 100) . '...' }}</p>
                                 <a href="{{ route('comics.show', $comic->id) }}" class="btn btn-primary">Show
                                     details</a>
-                                <form action="{{ route('comics.destroy', $comic->id) }}" method="POST"
-                                    style="display: inline">
+                                <form action="{{ route('comics.destroy', $comic->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                    <button type="submit" class="btn btn-danger ">Delete</button>
                                 </form>
                             </div>
                         </div>

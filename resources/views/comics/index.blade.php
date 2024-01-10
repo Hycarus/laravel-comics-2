@@ -7,7 +7,17 @@
         <section class="container">
             <div class="d-flex justify-content-between align-items-center">
                 <h1>Comics</h1>
-                <div><a href="{{ route('comics.create') }}" class="btn btn-primary">Create new Comic</a></div>
+                <div class="d-flex justify-content-center align-items-center">
+                    <a href="{{ route('comics.create') }}" class="btn btn-primary me-3">Create new Comic</a>
+                    <form action="{{ route('comics.index') }}" method="GET">
+                        <select name="search" id="search">
+                            <option value="" selected>All</option>
+                            <option value="comic book">Comic Book</option>
+                            <option value="graphic novel">Graphic Novel</option>
+                        </select>
+                        <button type="submit" class="btn btn-danger ms-3">Search</button>
+                    </form>
+                </div>
             </div>
             @if (session()->has('message'))
                 <div class="alert alert-success">{{ session('message') }}</div>

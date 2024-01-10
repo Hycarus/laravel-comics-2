@@ -25,7 +25,7 @@
             <div class="row gy-4">
                 @foreach ($comics as $comic)
                     <div class="col-12 col-md-4 col-lg-3">
-                        <div class="card">
+                        <div class="card my-comics-card">
                             <img src="{{ $comic->thumb }}" alt="{{ $comic->title }}" class="card-img-top">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $comic->title }}</h5>

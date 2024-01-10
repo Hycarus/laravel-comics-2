@@ -6,6 +6,8 @@ use App\Models\Comic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illumminate\View\View;
+use App\Http\Requests\UpdateComicRequest;
+use App\Http\Requests\StoreComicRequest;
 
 class ComicController extends Controller
 {
@@ -16,7 +18,6 @@ class ComicController extends Controller
      */
     public function index()
     {
-        //
         $comics = Comic::all();
         return view('comics.index', compact('comics'));
     }
@@ -28,7 +29,6 @@ class ComicController extends Controller
      */
     public function create()
     {
-        //
         return view('comics.create');
     }
 
@@ -38,28 +38,10 @@ class ComicController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreComicRequest $request)
     {
-        //
         $formData = $this->validation($request->all());
-        // $request->validate([
-        //     'title' => 'required|min:5|max:255|unique:comics',
-        //     'type' => 'required|max:50',
-        //     'description' => 'required|max:255',
-        //     'price' => 'required|numeric',
-        //     'series' => 'required|max:50',
-        //     'sale_date' => 'required|date_format:Y-m-d',
-        // ]);
-        // $newComic = new Comic();
-        // $newComic->fill($formData);
-        // $newComic->title = $formData['title'];
-        // $newComic->description = $formData['description'];
-        // $newComic->price = $formData['price'];
-        // $newComic->series = 'a piacere';
-        // $newComic->sale_date = '2020-01-01';
-        // $newComic->type = $formData['type'];
-
-        // $newComic->save();
+        $formData = $request->validated();
         $newComic = Comic::create($formData);
         return to_route('comics.show', $newComic->id);
     }
@@ -72,7 +54,6 @@ class ComicController extends Controller
      */
     public function show(Comic $comic)
     {
-        //
         return view('comics.show', compact('comic'));
     }
 
@@ -94,23 +75,10 @@ class ComicController extends Controller
      * @param  \App\Models\Comic  $comic
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comic $comic)
+    public function update(UpdateComicRequest $request, Comic $comic)
     {
         $formData = $this->validation($request->all());
-        // $request->validate([
-        //     'title' => 'required|min:5|max:255|unique:comics',
-        //     'type' => 'required|max:50',
-        //     'description' => 'required|max:255',
-        //     'price' => 'required|numeric',
-        //     'series' => 'required|max:50',
-        //     'sale_date' => 'required|date_format:Y-m-d',
-        // ]);
-        // $comic->title = $formData['title'];
-        // $comic->description = $formData['description'];
-        // $comic->price = $formData['price'];
-        // $comic->series = 'a piacere';
-        // $comic->sale_date = '2020-01-01';
-        // $comic->type = $formData['type'];
+        $formData = $request->validated();
         $comic->fill($formData);
         $comic->update();
         return to_route('comics.show', $comic->id);
@@ -151,7 +119,7 @@ class ComicController extends Controller
             'series.required' => 'La serie è obbligatoria',
             'series.max' => 'La serie deve avere massimo :max caratteri',
             'sale_date.required' => 'La data di vendita è obbligatoria',
-            'sle_date.date_format' => 'La data di vendita deve essere nel formato AAAA-MM-GG',
+            'sale_date.date_format' => 'La data di vendita deve essere nel formato AAAA-MM-GG',
         ])->validate();
         return $validator;
     }
